@@ -46,18 +46,19 @@
         var cubes = [];
         var cube;
         for (i = 0; i < 10; i++) {
-            cube = new THREE.Mesh(new THREE.BoxGeometry(30, 30, 30),
-                new THREE.MeshLambertMaterial({ color: Math.random() * 0xffffff }));
-//            var startPosition = new THREE.Vector3(Math.random() * 500-250, Math.random() * 500-250, -500);
-//           var direction = camera.getWorldPosition().sub(startPosition).normalize();
-//            cube.position.set(startPosition);
-            cube.position.set(Math.random() * 500-250, Math.random() * 500-250, Math.random() *  500-499);
-            scene.add(cube);
-            cubes.push(cube);
+            addCube();
         }
         document.getElementById("output").appendChild(renderer.domElement);
         renderScene();
 
+        function addCube(){
+            cube = new THREE.Mesh(new THREE.BoxGeometry(30, 30, 30), new THREE.MeshLambertMaterial({ color: Math.random() * 0xffffff }));
+            //new THREE.Vector3(Math.random() * 500-250, Math.random() * 500-250, Math.random() * 500-499);
+            var startPosition = cube.position.set(Math.random() * 500-250, Math.random() * 500-250, Math.random() *  500-499);
+            var direction = camera.getWorldPosition().sub(startPosition).normalize();
+            var num = Math.random() * 10;
+            scene.add(cube);
+        }
         function renderScene() {
             cubes.forEach(function (c) {
                 c.rotateX(0.1 * Math.random());
