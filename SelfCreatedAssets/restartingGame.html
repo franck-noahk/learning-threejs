@@ -7,9 +7,30 @@
             margin: 0;
             overflow: hidden;
         }
+        #score{
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            color: white;
+        }
+        #level{
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            color: white;
+        }
+        #health{
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            color: red;
+        }
     </style>
 </head>
 <body>
+    <div id="score"></div>
+    <dev id="level"></dev>
+    <dev id="health"></dev>
     <div id="output"></div>
     <script>
         var scene = new THREE.Scene();
