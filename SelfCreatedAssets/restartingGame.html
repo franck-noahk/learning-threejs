@@ -64,6 +64,9 @@
                 c.rotateY(0.1 * Math.random());
             });
             requestAnimationFrame(renderScene);
+            document.getElementById("score").innerHTML = "Score: " + score;
+            document.getElementById("level").innerHTML = "Level: " + level;
+            document.getElementById("health").innerHTML = "Health: " + health;
             renderer.render(scene, camera);
         }
 
