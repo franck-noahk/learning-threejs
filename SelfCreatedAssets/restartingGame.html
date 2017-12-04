@@ -58,11 +58,15 @@
         }
         document.getElementById("output").appendChild(renderer.domElement);
         renderScene();
-
         function addCube(){
-            cube = new THREE.Mesh(new THREE.BoxGeometry(30, 30, 30), new THREE.MeshLambertMaterial({ color: Math.random() * 0xffffff }));
+            cube = new THREE.Mesh(new THREE.BoxGeometry(30, 30, 30), new THREE.MeshLambertMaterial({ color: Math.random() * 0xffffff }));/*
+            var x = Math.random() * 500 - 250;
+            var y = Math.random() * 500 - 250;
+            var z = Math.random() * 500 - 250;
+            */
             //new THREE.Vector3(Math.random() * 500-250, Math.random() * 500-250, Math.random() * 500-499);
-            var startPosition = cube.position.set(Math.random() * 500-250, Math.random() * 500-250, Math.random() *  500-499);
+           // var startPosition = cube.position.set(x,y,z);
+            var startPosition = cube.position.set(Math.random() * 500-250, Math.random() * 500-250, Math.random() * 500-499);
             var direction = camera.getWorldPosition().sub(startPosition).normalize();
             var num = Math.random() * 10;
             scene.add(cube);
