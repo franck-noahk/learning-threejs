@@ -38,7 +38,8 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setClearColor(new THREE.Color('black'));
         var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 3000);
-        camera.position.set(0, 0, 700);
+        var cameraPosition = new THREE.Vector3(0,0,700);
+        camera.position.set(cameraPosition);
         scene.add(camera);
         var dirLight = new THREE.DirectionalLight(0xffffff);
         dirLight.position.set(0, 0, 1);
