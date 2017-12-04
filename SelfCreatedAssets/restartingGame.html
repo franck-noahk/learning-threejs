@@ -75,7 +75,6 @@
             goodEvil.push(num);
             totalCubes ++;
         }
-        
         function renderScene() {
             counter ++;
             console.log("Score: " + score);
@@ -134,9 +133,14 @@
             cubes.splice(intersectedObjIndex,1);
             directions.splice(intersectedObjIndex,1);
             goodEvil.splice(intersectedObjIndex,1);
-            totalCubes --;
+            totalCubes --;/*
             score = score + 1;
-
+            if(goodEvil[intersectedObjIndex] > 75){
+                health = health + 5;
+            }
+            if(directions.indexOf(intersectedObjIndex) > cameraPosition ){
+                health = health - 10;
+            }*/
 //            directions.splice(intersectedObjIndex);
 //            totalCubes = totalCubes - 1;
           }
