@@ -57,7 +57,6 @@
         }
         document.getElementById("output").appendChild(renderer.domElement);
         renderScene();
-
         function addCube(){
             cube = new THREE.Mesh(new THREE.BoxGeometry(30, 30, 30), new THREE.MeshLambertMaterial({ color: Math.random() * 0xffffff }));
             //new THREE.Vector3(Math.random() * 500-250, Math.random() * 500-250, Math.random() * 500-499);
@@ -70,7 +69,6 @@
             goodEvil.push(num);
             totalCubes ++;
         }
-        
         function renderScene() {
             counter ++;
             console.log("Score: " + score);
@@ -95,7 +93,6 @@
                 cubeName = "wolf";
             }
             //------------------------------------------------------------
-            
             //-----------------------level system-------------------------
              if(counter < 500){
                  if (counter % 50 == 0){
