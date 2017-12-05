@@ -131,13 +131,17 @@
             goodEvil.splice(intersectedObjIndex,1);
             totalCubes --;
             score = score + 1;
-
-//            directions.splice(intersectedObjIndex);
-//            totalCubes = totalCubes - 1;
+            //directions.splice(intersectedObjIndex);
+            //totalCubes = totalCubes - 1;
           }
         }
         window.oncontextmenu = function(){
             reuturn false; 
+        }
+        function findViewingVolBackCorners(){
+            var upperLFScaledPos = new THREE.Vector3(-1,1,.5);
+            upperLFScaledPos = upperLFScaledPos.unproject(camera);
+            upperLFScaledPos = upperLFScaledPos.sub(camera)
         }
     </script>
 </body>
