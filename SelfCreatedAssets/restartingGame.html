@@ -81,6 +81,7 @@
             for(i = 0; i < totalCubes; i++){
                 cubes[i].position.add(directions[i]);
             }
+            //------------------cube name assignements--------------------
             var randomVar = Math.random();
             var cubeName;
             if(randomVar > 0.66){
@@ -93,7 +94,7 @@
                 materials = wolfMaterials;
                 cubeName = "wolf";
             }
-
+            //------------------------------------------------------------
             
             //-----------------------level system-------------------------
              if(counter < 500){
@@ -158,6 +159,15 @@
             var upperLFScaledPos = new THREE.Vector3(-1,1,.5);
             upperLFScaledPos = upperLFScaledPos.unproject(camera);
             upperLFScaledPos = upperLFScaledPos.sub(camera)
+        }
+        var projector = new THREE.Projector();
+        var button;
+        document.onMousedown = fucntion(e){
+            switch(e.button){
+                case 0: button = "left"; break;
+                case 1: button = "middle"; break;
+                case 2: button = "right"; break;
+            }
         }
     </script>
 </body>
