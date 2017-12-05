@@ -81,6 +81,21 @@
             for(i = 0; i < totalCubes; i++){
                 cubes[i].position.add(directions[i]);
             }
+            var randomVar = Math.random();
+            var cubeName;
+            if(randomVar > 0.66){
+                matterials = wilmsMaterials;
+                cubeName = "DrW";
+            }else if(randomVar > 0.33){
+                materials = captianJimKirkMaterial;
+                cubeName = "CaptianJK";
+            }else{
+                materials = wolfMaterials;
+                cubeName = "wolf";
+            }
+
+            
+            //-----------------------level system-------------------------
              if(counter < 500){
                  if (counter % 50 == 0){
                      addCube();
@@ -104,6 +119,7 @@
                      level = "Boss Level!!"
                  } 
              }
+             //-----------------------------------------------------------
             requestAnimationFrame(renderScene);
             document.getElementById("score").innerHTML = "Score: " + score;
             document.getElementById("level").innerHTML = "Level: " + level;
