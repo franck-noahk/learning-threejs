@@ -1,4 +1,22 @@
-    function cubeinit() {
+<html>
+    
+    <head>
+      <title>Saturn</title>
+      <script src="https://student-noah-franck.000webhostapp.com/libs/three.js"></script>
+      <script src ="https://student-noah-franck.000webhostapp.com/JSFiles/UnionLogo.js"></script>
+      <script src = "MultiColoredCube.js"></script>
+      <style>
+        body {
+          margin: 0;
+          overflow: hidden;
+        }
+      </style>
+    </head>
+    
+    <body>
+      <div id="output"></div>
+      <script>
+            function cubeinit() {
       //Scene
       var scene = new THREE.Scene();
       //Renderer
@@ -187,7 +205,7 @@
       document.getElementById("output").appendChild(renderer.domElement);
 
       window.addEventListener('resize', onResize, false);
-
+      console.log(document);
       document.onmousedown = function (event) {
         //console.log(event);
         var vector = new THREE.Vector3(event.clientX / window.innerWidth * 2 - 1, -event.clientY / window.innerHeight *
@@ -197,10 +215,9 @@
         console.log("unprojected vector: ", vector)
         var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
         var intersects = raycaster.intersectObjects(cubes);
-        console.log(intersects.length);
         if (intersects.length > 0) {
           var intersectedObjIndex = cubes.indexOf(intersects[0].object);
-          scene.remove(intersectedObjIndex);
+          scene.remove(intersects[0].object);
           cubes.splice(intersectedObjIndex, 1);
           //directions.splice(intersectedObjIndex);
           //totalCubes = totalCubes - 1;
@@ -208,3 +225,7 @@
       }
     }
     window.onload = cubeinit;
+      </script>
+    </body>
+    
+    </html>
