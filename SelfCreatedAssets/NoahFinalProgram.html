@@ -42,7 +42,7 @@
         var spotlight1 = new THREE.SpotLight(new THREE.Color(0xffffff));
         var spotlight1 = new THREE.SpotLight(new THREE.Color(0xffffff));
         //------------------------models--------------------------------------------------------------------
-        //cubes
+        //----------------------------cubes
         var cubes = [];
 
         function cubeCreate(x, y, z, hex, scene) {
@@ -77,12 +77,18 @@
         var cube7 = new cubeCreate(-10, 10, 0, 0x5813af, cubesScene); //back left top
 
 
-        //saturn
+        //-------------------------------saturn
         var saturnSphereGeometry = new THREE.SphereGeometry(10, 30, 30);
-        saturnSphereGeometry.vertices.forEach(function(v))
-        var saturnSphere = new THREE.
-
-        //helecopter
+        saturnSphereGeometry.vertices.forEach(function (v) {
+            if (v.y > -.1 && v.y <= .1) {
+                v.x *= 1.5;
+                v.y *= 1.5;
+                v.z *= 1.5;
+            }
+        })
+        var saturnSphere = new THREE.Mesh(saturnSphereGeometry, new THREE.MeshLambertMaterial({ shading: THREE.FlatShading, color: 0x2299ff }));
+        sphereScene.add(saturnSphere);
+        //------------------------------helecopter
         var body = new THREE.Mesh(new THREE.BoxGeometry(45, 55, 40, 5), new THREE.MeshLambertMaterial({
             color: 0x6960Ec
         }));
