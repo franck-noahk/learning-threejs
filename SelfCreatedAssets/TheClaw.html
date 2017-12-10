@@ -1,0 +1,177 @@
+<html>
+<head>
+<script src="three.js"></script>
+    <style>
+        body {
+            margin:0;
+            overflow:hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="output"></div>
+<script>
+var scale;
+var scene = new THREE.Scene();
+         
+	var camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 1000);
+       camera.position.set(0, 0, 300);
+	   scene.add(camera);
+	   
+	   var renderer = new THREE.WebGLRenderer();
+	       renderer.setClearColor("blue");
+		   renderer.setSize(window.innerWidth, window.innerHeight);
+		   
+	    var spotlight = new THREE.SpotLight(0xffffff);
+        spotlight.position.set(0,0,300);
+        spotlight.castShadow = true;
+        scene.add(spotlight);
+		
+		
+		var base = new THREE.Mesh(new THREE.CylinderGeometry(30, 50, 20), new THREE.MeshPhongMaterial({color:'grey'}));
+		    base.position.set(0,-60,100);
+		var ball1 = new THREE.Mesh(new THREE.SphereGeometry(5,10,10), new THREE.MeshPhongMaterial({color: 'grey', shininess:9001}));
+		    ball1.position.set(0,-50,100);
+		    ball1.translateY(60);
+		    ball1.translateZ(-100);
+		var gun1 = new THREE.Mesh(new THREE.CylinderGeometry(3, 3, 60), new THREE.MeshPhongMaterial({color:'grey', shininess:9001}));
+		    gun1.position.set(0,0,100);
+		    gun1.translateY(30);
+		    gun1.translateZ(-100);
+	    var ball2 = new THREE.Mesh(new THREE.SphereGeometry(5,10,10), new THREE.MeshPhongMaterial({color: 'grey', shininess:9001}));
+		    ball2.position.set(0,0,100);
+		    ball2.translateY(30);
+		    ball2.translateZ(-100);
+		var gun2 = new THREE.Mesh(new THREE.CylinderGeometry(3, 3, 60), new THREE.MeshPhongMaterial({color:'grey', shininess:9001}));
+		    gun2.position.set(0,0,100);
+		    gun2.translateY(30);
+		    gun2.translateZ(-100);
+		var hand = new THREE.Mesh(new THREE.SphereGeometry(10, 10, 10), new THREE.MeshPhongMaterial({color:'grey', shininess:9001}));
+		    hand.scale.z=0.3;
+		    hand.position.set(0,0,100);
+		    hand.translateY(30);
+		    hand.translateZ(-100);
+	    var finger1 = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 20), new THREE.MeshPhongMaterial({color:'grey', shininess:9001}));
+		    finger1.scale.z = 2.5;
+		    finger1.position.set(5,0,100);
+		    finger1.translateY(15);
+		    finger1.translateZ(-100);
+		var finger2 = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 20), new THREE.MeshPhongMaterial({color:'grey', shininess:9001}));
+		    finger2.scale.z = 2.5;
+		    finger2.position.set(-5,0,100);
+		    finger2.translateY(15);
+		    finger2.translateZ(-100);
+		var hub = new THREE.Group();
+		    hub.add(base);
+		  base.add(ball1);
+		  ball1.add(gun1);
+		  gun1.add(ball2);
+		  ball2.add(gun2);
+		  gun2.add(hand);
+		  hand.add(finger1);
+		  hand.add(finger2);
+		  
+		  
+		 
+        document.getElementById("output").appendChild(renderer.domElement);
+		
+		function onKeyDown(event) {
+              console.log(event.which);
+                switch (event.which) {  
+                    case 65: base.translateY(-30);
+					         base.rotateY(-0.1);
+                             base.translateY(30);  break;    // angleY A Spinning Base
+							 
+                    case 90: base.translateY(-30);
+					         base.rotateY(0.1); 
+							 base.translateY(30);   break;     // angleY Z
+					         
+					case 83:  if (gun1.rotation.z>-1.4){
+					             gun1.translateY(-30);
+					             gun1.rotateZ(-0.1);
+                                 gun1.translateY(30);
+                                 break;								  
+							   } 
+                              else{ 								  
+							    break;
+                               }																// S  Gun1
+					
+                    case 88: if (gun1.rotation.z<1.4){
+					           gun1.translateY(-30);
+					           gun1.rotateZ(0.1);
+                               gun1.translateY(30);   
+							   break;
+                               }
+							   else{
+							   break;
+							   }
+					
+				    case 68: if(gun2.rotation.z>-2){
+					           gun2.translateY(-30);
+					           gun2.rotateZ(-0.1); 
+							   gun2.translateY(30);   
+							   break; 
+                             }	
+                             else {
+							 break;
+                             }							 
+					
+					case 67: if(gun2.rotation.z<2){
+					           gun2.translateY(-30);
+					           gun2.rotateZ(0.1); 
+							   gun2.translateY(30);   
+							   break;
+                             }
+                             else{
+                              break;
+                             }							  //C  Gun 2
+					
+					case 70: hand.translateY(-5);
+					         hand.rotateY(-0.1);
+							 hand.translateY(5);  break;
+					
+					case 86: hand.translateY(-5);
+					         hand.rotateY(0.1);
+							 hand.translateY(5);  break;
+
+                    case 71: if(finger1.rotation.z>-0.5 && finger2.rotation.z<0.5){
+					           finger1.translateY(-10);
+					           finger1.rotateZ(-0.1);
+							   finger1.translateY(10);
+							   finger2.translateY(-10);
+							   finger2.rotateZ(0.1);
+							   finger2.translateY(10);  
+							   break;
+							 }
+							 else{
+							   break;
+							 }
+					
+					case 66: if(finger1.rotation.z<0.15 && finger2.rotation.z>-0.15){
+					           finger1.translateY(-10);
+					           finger1.rotateZ(0.1);
+							   finger1.translateY(10);
+					           finger2.translateY(-10);
+							   finger2.rotateZ(-0.1);
+							   finger2.translateY(10);  
+							   break;
+                             }
+                            else{
+							 break;
+                            }							
+																	   
+                }
+            }
+			
+			window.addEventListener('keydown', onKeyDown, false);
+
+        function renderScene() {
+		    scene.add(hub);
+            requestAnimationFrame(renderScene);
+            renderer.render(scene, camera);
+
+        }
+		renderScene()
+</script>
+</body>
+</html>
