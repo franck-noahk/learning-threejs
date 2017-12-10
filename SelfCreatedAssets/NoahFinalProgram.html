@@ -532,6 +532,97 @@
                 renderer.render(jailScene,universalCamera);
             }
 
+            function armRenderScene(){
+                renderer.render(armScene, universalCamera);
+
+                window.addEventListener('keydown', armOnKeyDown(event), false);
+                function armOnKeyDown(event){
+                switch (event.which) {  
+                    case 65: base.translateY(-30);
+					         base.rotateY(-0.1);
+                             base.translateY(30);  break;    // angleY A Spinning Base
+							 
+                    case 90: base.translateY(-30);
+					         base.rotateY(0.1); 
+							 base.translateY(30);   break;     // angleY Z
+					         
+					case 83:  if (gun1.rotation.z>-1.4){
+					             gun1.translateY(-30);
+					             gun1.rotateZ(-0.1);
+                                 gun1.translateY(30);
+                                 break;								  
+							   } 
+                              else{ 								  
+							    break;
+                               }																// S  Gun1
+					
+                    case 88: if (gun1.rotation.z<1.4){
+					           gun1.translateY(-30);
+					           gun1.rotateZ(0.1);
+                               gun1.translateY(30);   
+							   break;
+                               }
+							   else{
+							   break;
+							   }
+					
+				    case 68: if(gun2.rotation.z>-2){
+					           gun2.translateY(-30);
+					           gun2.rotateZ(-0.1); 
+							   gun2.translateY(30);   
+							   break; 
+                             }	
+                             else {
+							 break;
+                             }							 
+					
+					case 67: if(gun2.rotation.z<2){
+					           gun2.translateY(-30);
+					           gun2.rotateZ(0.1); 
+							   gun2.translateY(30);   
+							   break;
+                             }
+                             else{
+                              break;
+                             }							  //C  Gun 2
+					
+					case 70: hand.translateY(-5);
+					         hand.rotateY(-0.1);
+							 hand.translateY(5);  break;
+					
+					case 86: hand.translateY(-5);
+					         hand.rotateY(0.1);
+							 hand.translateY(5);  break;
+
+                    case 71: if(finger1.rotation.z>-0.5 && finger2.rotation.z<0.5){
+					           finger1.translateY(-10);
+					           finger1.rotateZ(-0.1);
+							   finger1.translateY(10);
+							   finger2.translateY(-10);
+							   finger2.rotateZ(0.1);
+							   finger2.translateY(10);  
+							   break;
+							 }
+							 else{
+							   break;
+							 }
+					
+					case 66: if(finger1.rotation.z<0.15 && finger2.rotation.z>-0.15){
+					           finger1.translateY(-10);
+					           finger1.rotateZ(0.1);
+							   finger1.translateY(10);
+					           finger2.translateY(-10);
+							   finger2.rotateZ(-0.1);
+							   finger2.translateY(10);  
+							   break;
+                             }
+                            else{
+							 break;
+                            }							
+																	   
+                }}
+            }
+
             //Function for  removing cubes. 
             //might nees to remove it to the 
             document.onmousedown = function (event) {
