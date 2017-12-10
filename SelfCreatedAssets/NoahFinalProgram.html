@@ -187,8 +187,19 @@
         var sphere = new THREE.Mesh(sphereGeom, sphereMaterial);
         sphereScene.add(sphere);
 
+        //------------------------------Laura----------------------------
+        var LauraModel; 
+        var loaderLauraBlender = new THREE.JsonLoader();
+        // TODO : upload laura's blender file to the website and then load copy link here. 
+        loaderLauraBlender.load( ,loadFunc );
 
-
+        function loadFunc(geom, mat){
+            model = new THREE.Mesh(geom,mat[0]);
+            model.material = new THREE.MeshPhongMaterial({color: 'silver'});
+            var scale = 20;
+            model.rotateY(-Math.PI / 2);
+            jailScene.add(model);
+        }
 
         //------------------------normal functions- -----------------------------------------------
 
@@ -467,6 +478,14 @@
                     }
                 }
                 requestAnimationFrame(renderScene);
+            }
+
+            function jailRenderScene(){
+                if(model){
+                    model.rotateY(.01);
+                }
+                requestAnimationFrame(renderScene);
+                renderer.render(jailScene,universalCamera);
             }
 
             //Function for  removing cubes. 
