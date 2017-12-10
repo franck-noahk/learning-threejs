@@ -314,55 +314,55 @@
                         }
                     }
 
-                rearProppeller.rotateZ(.01);
+                    rearProppeller.rotateZ(.01);
 
-                renderer.render(scene, myCamera);
-                requestAnimationFrame(renderScene);
+                    renderer.render(helecopterScene, universalCamera);
+                    requestAnimationFrame(renderScene);
 
-                function onKeyDown(event) {
-                    //console.log(event.which);
-                    switch (event.which) {
-                        case 38: //up
-                            stationaryHeight = false;
-                            topPropellerAccelerating = true;
-                            topPropellerDecelerating = false;
-                            break;
-                        case 40: //down
-                            stationaryHeight = false;
-                            topPropellerAccelerating = false;
-                            topPropellerDecelerating = true;
-                            break;
-                        case 37: //left
-                            if (body.position.y > 30) {
+                    function onKeyDown(event) {
+                        //console.log(event.which);
+                        switch (event.which) {
+                            case 38: //up
+                                stationaryHeight = false;
+                                topPropellerAccelerating = true;
+                                topPropellerDecelerating = false;
+                                break;
+                            case 40: //down
+                                stationaryHeight = false;
+                                topPropellerAccelerating = false;
+                                topPropellerDecelerating = true;
+                                break;
+                            case 37: //left
+                                if (body.position.y > 30) {
+                                    backPropellerRight = false;
+                                    neutralPropeller = false;
+                                    backPropellerLeft = true;
+                                }
+                                break;
+                            case 39: //right
+                                if (body.position.y > 30) {
+                                    backPropellerLeft = false;
+                                    neutralPropeller = false;
+                                    backPropellerRight = true;
+                                }
+                                break;
+                            case 32: //space
+                                //TODO:first space is stop rotating second space is stop the altitude.
                                 backPropellerRight = false;
-                                neutralPropeller = false;
-                                backPropellerLeft = true;
-                            }
-                            break;
-                        case 39: //right
-                            if (body.position.y > 30) {
                                 backPropellerLeft = false;
-                                neutralPropeller = false;
-                                backPropellerRight = true;
-                            }
-                            break;
-                        case 32: //space
-                            //TODO:first space is stop rotating second space is stop the altitude.
-                            backPropellerRight = false;
-                            backPropellerLeft = false;
-                            neutralPropeller = true;
-                            break;
+                                neutralPropeller = true;
+                                break;
+                        }
                     }
+
+
                 }
-
-
-            }
 
 
             function expandingCubeRenderScene() {
 
-                scene.rotateY(.01);
-                scene.rotateX(.01);
+                cubesScene.rotateY(.01);
+                cubesScene.rotateX(.01);
 
                 myTimer += 1;
                 //console.log(myTimer);
@@ -451,7 +451,7 @@
 
                 }
 
-                renderer.render(scene, camera);
+                renderer.render(cubesScene, camera);
                 requestAnimationFrame(renderScene);
             }
 
