@@ -205,7 +205,7 @@
         var renderSceneVariable = 0;
         //--------------------------------Functions--------------------------------
         function renderScene() {
-            if(renderSceneVariable == 0)
+            if (renderSceneVariable == 0)
                 expandingCubeRenderScene();
             else if (renderSceneVariable == 1)
                 HelecopterRenderScene();
@@ -469,6 +469,8 @@
                 requestAnimationFrame(renderScene);
             }
 
+            //Function for  removing cubes. 
+            //might nees to remove it to the 
             document.onmousedown = function (event) {
                 //console.log(event);
                 var vector = new THREE.Vector3(event.clientX / window.innerWidth * 2 - 1, -event.clientY / window.innerHeight *
