@@ -214,7 +214,7 @@
             else if (renderSceneVariable == 3)
             
             else if (renderSceneVariable == 4)
-            
+                saturnRenderScene();
             else if (renderSceneVariable == 5)
             
             else if (renderSceneVariable == 6)
@@ -455,6 +455,18 @@
                 requestAnimationFrame(renderScene);
             }
 
+            function saturnRenderScene() {
+                renderer.render(sphereScene, universalCamera);
+                function onKeyDown(event) {
+                    //              console.log(event.which);
+                    switch (event.which) {
+                        case 39: sphere.rotateY(0.04); break;    // angleY += 0.01
+                        case 37: sphere.rotateY(-0.04); break;       // angleY -= 0.01
+                        case 40: sphere.rotateX(0.04); break;
+                        case 38: sphere.rotateX(-0.04);
+                    }
+                }
+                requestAnimationFrame(renderScene);
             }
 
             document.onmousedown = function (event) {
@@ -475,7 +487,7 @@
                 }
             }
 
-            window.addEventListener('resize', onResize, false);
+
             window.addEventListener('keydown', onKeyDown, false);
             document.getElementById("output").appendChild(renderer.domElement);
         }
