@@ -266,7 +266,7 @@
         SolarHub.add(earth);
         earth.add(moon);
 
-
+        //the game
 
         //------------------------normal functions- -----------------------------------------------
 
@@ -307,6 +307,10 @@
                 jailRenderScene();
             else if (renderSceneVariable == 8)
                 deathstarRenderScene();
+
+            function gameRenderScene(){
+
+            }
 
             function solarRenderScene() {
                 switch (cameraState) {
@@ -349,7 +353,7 @@
 
                 requestAnimationFrame(spaceScene, spaceCamera);
                 window.addEventListener('keydown', onKeyDownSpace, false);
-            }
+            }//3
 
             function HelecopterRenderScene() {
                 //console.log(bladesCounter);
@@ -483,7 +487,7 @@
                 }
 
 
-            }
+            }//6
 
             function expandingCubeRenderScene() {
 
@@ -579,7 +583,7 @@
 
                 renderer.render(cubesScene, camera);
                 requestAnimationFrame(renderScene);
-            }
+            } //0
 
             function saturnRenderScene() {
                 renderer.render(sphereScene, universalCamera);
@@ -593,7 +597,7 @@
                     }
                 }
                 requestAnimationFrame(renderScene);
-            }
+            }//4
 
             function jailRenderScene() {
                 if (model) {
@@ -601,7 +605,7 @@
                 }
                 requestAnimationFrame(renderScene);
                 renderer.render(jailScene, universalCamera);
-            }
+            }//7
 
             function armRenderScene() {
                 renderer.render(armScene, universalCamera);
@@ -682,7 +686,7 @@
 
                     }
                 }
-            }
+            }//5
 
             //Function for  removing cubes. 
             //might nees to remove it to the 
