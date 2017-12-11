@@ -131,8 +131,8 @@
         blades.scale.z = .01;
         blades.position.set(0, 2.5, 0);
         connector.add(blades);
-        var vertices = [ new THREE.Vector3(0, 27.5, 20.1),  new THREE.Vector3(0, 55, 20.1), new THREE.Vector3(-30, 27.5, 20.1),  new THREE.Vector3(0, 27.5, -20.1),  new THREE.Vector3(0, 55, -20.1), new THREE.Vector3(-30, 27.5, -20.1) ];
-        var faces = [ new THREE.Face3(0, 1, 2), new THREE.Face3(3, 4, 5), new THREE.Face3(5, 2, 1), new THREE.Face3(1, 5, 4), ];
+        var vertices = [new THREE.Vector3(0, 27.5, 20.1), new THREE.Vector3(0, 55, 20.1), new THREE.Vector3(-30, 27.5, 20.1), new THREE.Vector3(0, 27.5, -20.1), new THREE.Vector3(0, 55, -20.1), new THREE.Vector3(-30, 27.5, -20.1)];
+        var faces = [new THREE.Face3(0, 1, 2), new THREE.Face3(3, 4, 5), new THREE.Face3(5, 2, 1), new THREE.Face3(1, 5, 4),];
 
         var triangleGeom = new THREE.Geometry();
         triangleGeom.vertices = vertices;
@@ -227,6 +227,47 @@
         armScene.add(hub);
 
 
+
+
+        //-----------------------------Solar System -----------------
+        var solarSystemStars = new THREE.Mesh(new THREE.SphereGeometry(1024, 10, 10),
+            new THREE.MeshPhongMaterial({ map: stars, side: THREE.BackSide, color: 'darkgrey' }));
+
+
+        //textures be sure to load from internet or from local file. 
+        var hydrogen = THREE.ImageUtils.loadTexture("sun.jpg");
+        hydrogen.wrapS = THREE.MirroredRepeatWrapping;
+        hydrogen.wrapT = THREE.RepeatWrapping;
+
+        var land = THREE.ImageUtils.loadTexture("earth.jpg");
+        land.wrapS = THREE.MirroredRepeatWrapping;
+        land.wrapT = THREE.RepeatWrapping;
+
+        var crater = THREE.ImageUtils.loadTexture("moon.jpg");
+        crater.wrapS = THREE.MirroredRepeatWrapping;
+        crater.wrapT = THREE.RepeatWrapping;
+
+
+        scene.add(sphere);
+        sphere.position.set(0, 0, 0);
+        var sun = new THREE.Mesh(new THREE.SphereGeometry(30, 20, 20),
+            new THREE.MeshPhongMaterial({ map: hydrogen, emissive: 0xffffff }));
+        sun.position.set(0, 0, 0);
+
+        var earth = new THREE.Mesh(new THREE.SphereGeometry(5, 20, 20),
+            new THREE.MeshPhongMaterial({ map: land }));
+        earth.position.set(0, 0, 50);
+
+        var moon = new THREE.Mesh(new THREE.SphereGeometry(2, 20, 20),
+            new THREE.MeshPhongMaterial({ map: crater }));
+        moon.position.set(0, 0, 10);
+
+        var SolarHub = new THREE.Group();
+        SolarHub.add(earth);
+        earth.add(moon);
+
+
+
         //------------------------normal functions- -----------------------------------------------
 
         function loadFunc(geom, mat) {
@@ -284,14 +325,30 @@
                         spaceCamera.position.set(moonWorldPos.x, moonWorldPos.y, moonWorldPos.z);
                         spaceCamera.lookAt(earth.getWorldPosition()); break;
                 }
+                function onKeyDownSpace(event) {
+                    switch (event.which) {
+                        case 83: cameraState = 'sunToEarth'; break;   //views Earth from Sun
+                        case 69: cameraState = 'earthToMoon'; break;  //views moon from earth
+                        case 79: cameraState = 'original'; break;     //original position    
+                        case 77: cameraState = 'moonToEarth'; break; //views earth from moon
+                    }
+                }
 
+                spaceScene.add(sun);
+                spaceScene.add(hub);
                 moon.translateZ(-10);
                 moon.rotateY(0.003);
                 moon.translateZ(10);
+                solarHub.translateX(-5);
+                solarHub.rotateY(0.001);
+                solarHub.translateX(5);
                 sun.rotateY(0.001);
                 earth.rotateY(0.01);
+                requestAnimationFrame(renderScene);
+                renderer.render(scene, camera);
 
                 requestAnimationFrame(spaceScene, spaceCamera);
+                window.addEventListener('keydown', onKeyDownSpace, false);
             }
 
             function HelecopterRenderScene() {
@@ -608,7 +665,8 @@
                             hand.rotateY(0.1);
                             hand.translateY(5); break;
 
-                        case 71: if (finger1.rotation.z > -0.5 && finger2.rotation.z < 0.5) { finger1.translateY(-10); finger1.rotateZ(-0.1); finger1.translateY(10); finger2.translateY(-10); finger2.rotateZ(0.1); finger2.translateY(10);
+                        case 71: if (finger1.rotation.z > -0.5 && finger2.rotation.z < 0.5) {
+                            finger1.translateY(-10); finger1.rotateZ(-0.1); finger1.translateY(10); finger2.translateY(-10); finger2.rotateZ(0.1); finger2.translateY(10);
                             break;
                         }
                         else {
