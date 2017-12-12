@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://student-noah-franck.000webhostapp.com/final/uneditedLogo.html -->
+<html class="gr__student-noah-franck_000webhostapp_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Represent the U </title>
+    <script src="./Click here!!!!_files/three.js.download"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #instructions{
+            position:absolute; 
+            right:60px;
+            top: 10px; 
+            color:white
+        }
+        #inputs{
+            position: absolute;
+            left: 60px;
+            top: 10px;
+            color:white;
+        }
+    </style>
+<style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style></head>
+
+<body data-gr-c-s-loaded="true">
+    <div id="output"><canvas width="2735" height="1542" style="width: 1094px; height: 617px;"></canvas></div>
+    <div id="instructions">Hey Welcome to my website!!! <br>            You can control the "U" with the arrow keys <br>             You can also enter in random words or<br>            characters to do fun easter eggs<br>             try the phrase 'help' followed by enter</div>
+    <div id="inputs"></div>
+    <script>
+        function logoinit() {
+            var myTurnTimer = 0;
+            //Scene
+            var scene = new THREE.Scene();
+            //Renderer
+            var renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(new THREE.Color(0x00ff00));
+
+            var myTimer = 0; //something just for fun
+
+            //Camera
+            var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 300);
+            //Lights
+            var ambLight = new THREE.AmbientLight(new THREE.Color(0x222222));
+            var spotLight = new THREE.SpotLight(new THREE.Color(0xffffff));
+            var spotLight2 = new THREE.SpotLight(new THREE.Color(0xffffff));
+            var spotLight3 = new THREE.SpotLight(new THREE.Color(0xffffff));
+            var spotLight4 = new THREE.SpotLight(new THREE.Color(0xffffff));
+            var spotLight5 = new THREE.SpotLight(new THREE.Color(0xffffff));
+            var spotLight6 = new THREE.SpotLight(new THREE.Color(0xffffff));
+            spotLight.position.set(0, 0, -500);
+            spotLight2.position.set(500, 0, 0);
+            spotLight3.position.set(0, 500, 0);
+            spotLight4.position.set(0, -500, 0);
+            spotLight5.position.set(-500, 0, 0);
+            spotLight6.position.set(0, 0, 500);
+
+            scene.add(ambLight);
+            scene.add(spotLight, spotLight2, spotLight3, spotLight4, spotLight5, spotLight6);
+            //Model
+
+            var texture = THREE.ImageUtils.loadTexture("Textures/logos.jpg");
+
+            var sphere = new THREE.Mesh(new THREE.SphereGeometry(600, 600, 600), new THREE.MeshLambertMaterial({
+                color: 'skyblue',
+                side: THREE.DoubleSide,
+                map: texture
+            }));
+            sphere.position.set(0, -100, 0);
+            scene.add(sphere);
+
+            var command = " ";
+            var tempCommand = "";
+
+            var dogTexture = THREE.ImageUtils.loadTexture("Textures/UUBusterBullDog.png");
+
+            var dogPlane = new THREE.Mesh(new THREE.PlaneGeometry(45, 45, 25, 25), new THREE.MeshLambertMaterial({
+                side: THREE.BackSide,
+                map: dogTexture,
+                transparent: true
+            }));
+            dogPlane.position.set(0, 25, 0);
+            scene.add(dogPlane);
+
+            var verticesInner = [
+                new THREE.Vector3(9, 60, 0), //0
+                new THREE.Vector3(9, 70, 0), //1
+                new THREE.Vector3(35, 70, 0), //2
+                new THREE.Vector3(35, 60, 0), //3
+                new THREE.Vector3(35, -10, 0), //4
+                new THREE.Vector3(18.5, -27, 0), //5
+                new THREE.Vector3(-18.5, -27, 0), //6
+                new THREE.Vector3(-35, -10, 0), //7
+                new THREE.Vector3(-35, 60, 0), //8
+                new THREE.Vector3(-35, 70, 0), //9
+                new THREE.Vector3(-9, 70, 0), //10
+                new THREE.Vector3(-9, 60, 0), //11
+                new THREE.Vector3(-24, 60, 0), //12
+                new THREE.Vector3(-24, -5, 0), //13
+                new THREE.Vector3(-16, -15, 0), //14
+                new THREE.Vector3(16, -15, 0), //15
+                new THREE.Vector3(24, -5, 0), //16
+                new THREE.Vector3(24, 60, 0) //17
+            ];
+
+            var facesInner = [
+                new THREE.Face3(0, 1, 2), //1
+                new THREE.Face3(2, 3, 0), //2
+                new THREE.Face3(3, 4, 17), //3
+                new THREE.Face3(4, 17, 16), //4
+                new THREE.Face3(4, 5, 16), //5
+                new THREE.Face3(5, 6, 15), //6
+                new THREE.Face3(6, 14, 15), //7
+                new THREE.Face3(6, 14, 7), //8
+                new THREE.Face3(7, 14, 13), //9
+                new THREE.Face3(7, 13, 8), //10
+                new THREE.Face3(12, 13, 8), //11
+                new THREE.Face3(8, 9, 10), //12
+                new THREE.Face3(10, 11, 12), //13
+                new THREE.Face3(5, 15, 16), //14
+                new THREE.Face3(10, 8, 12)
+            ];
+
+            var verticesOuter = [
+                new THREE.Vector3(50, 70, 0), //0
+                new THREE.Vector3(70, 70, 0), //1
+                new THREE.Vector3(70, 60, 0), //2
+                new THREE.Vector3(60, 60, 0), //3
+                new THREE.Vector3(60, -18, 0), //4
+                new THREE.Vector3(36, -45, 0), //5
+                new THREE.Vector3(-36, -45, 0), //6
+                new THREE.Vector3(-60, -20, 0), //7
+                new THREE.Vector3(-60, 60, 0), //8
+                new THREE.Vector3(-70, 60, 0), //9
+                new THREE.Vector3(-70, 70, 0), //10
+                new THREE.Vector3(-50, 70, 0), //11
+                new THREE.Vector3(-50, 60, 0), //12
+                new THREE.Vector3(-50, -16, 0), //13
+                new THREE.Vector3(-31, -37, 0), //14
+                new THREE.Vector3(31, -37, 0), //15
+                new THREE.Vector3(50, -16, 0), //16
+                new THREE.Vector3(50, 60, 0) //17
+            ];
+
+            var facesOuter = [
+                new THREE.Face3(17, 0, 1), //1
+                new THREE.Face3(17, 2, 1), //2
+                new THREE.Face3(3, 4, 17), //3
+                new THREE.Face3(4, 17, 16), //4
+                new THREE.Face3(4, 5, 16), //5
+                new THREE.Face3(5, 16, 15), //6
+                new THREE.Face3(6, 14, 15), //7
+                new THREE.Face3(5, 15, 6), //8
+                new THREE.Face3(7, 14, 13), //9
+                new THREE.Face3(6, 14, 7), //10
+                new THREE.Face3(7, 13, 14), //11
+                new THREE.Face3(13, 8, 12), //12
+                new THREE.Face3(9, 10, 11), //13
+                new THREE.Face3(9, 11, 12), //14
+                new THREE.Face3(7, 13, 8)
+            ];
+
+            var cubeLoader = new THREE.JSONLoader();
+            cubeLoader.load('Textures/cube.js', cubeloadfunction);
+
+            var cubemodel;
+
+            function cubeloadfunction(cubeGeometry, cubeMaterial){
+                cubemodel = new THREE.Mesh(cubeGeometry, cubeMaterial[0]);
+                cubemodel.materiall = new THREE.MeshPhongMaterial({color: 'silver'});
+                
+            }
+
+
+            var logoGeomOutside = new THREE.Geometry();
+            logoGeomOutside.vertices = verticesOuter;
+            logoGeomOutside.faces = facesOuter;
+            logoGeomOutside.computeFaceNormals();
+
+            //TODO: Make sure that the color Matches the RGB of official logo
+            var logoMaterialOutside = new THREE.MeshLambertMaterial({
+                color: 0xab0533,
+                side: THREE.DoubleSide,
+                //wireframe: true,
+            });
+            var myLogoOutside = new THREE.Mesh(logoGeomOutside, logoMaterialOutside);
+            scene.add(myLogoOutside);
+
+            var Dplane = THREE.ImageUtils.loadTexture("Textures/'D'.png");
+            var Bplane = THREE.ImageUtils.loadTexture("Textures/'B'.png");
+
+            var D = new THREE.Mesh(new THREE.PlaneGeometry(90, 90, 10), new THREE.MeshLambertMaterial({ map: Dplane, transparent: true, side: THREE.BackSide }));
+            var B = new THREE.Mesh(new THREE.PlaneGeometry(90, 90, 10), new THREE.MeshLambertMaterial({ map: Bplane, transparent: true }));
+            D.rotateY(Math.PI);
+            D.position.set(-100, 25, 0);
+            B.position.set(100, 25, 0);
+
+
+            var logoGeom = new THREE.Geometry();
+            logoGeom.vertices = verticesInner;
+            logoGeom.faces = facesInner;
+            logoGeom.computeFaceNormals();
+
+            //TODO: Make sure that the color Matches the RGB of official logo
+            var logoMaterial = new THREE.MeshLambertMaterial({
+                color: 0xab0535,
+                side: THREE.DoubleSide,
+                //wireframe : true
+            });
+            var myLogo = new THREE.Mesh(logoGeom, logoMaterial);
+            scene.add(myLogo);
+		
+	
+            document.getElementById("output").appendChild(renderer.domElement);
+
+            renderScene();
+
+            function onResize() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            function renderScene() {
+
+                if (myTurnTimer > 200) {
+                    dogPlane.rotateY(-.01);
+                    myLogo.rotateY(-.01);
+                    myLogoOutside.rotateY(-.01);
+                } else {
+                    myTurnTimer += 1;
+                }
+                sphere.rotateY(.0045);
+                renderer.render(scene, camera);
+                requestAnimationFrame(renderScene);
+                
+                document.getElementById("instructions").innerHTML = currentInstructions;
+
+            }
+
+            var backUpCommand = [];
+            var baseInstructions = "Hey Welcome to my website!!! <br>\
+            You can control the \"U\" with the arrow keys <br> \
+            You can also enter in random words or<br>\
+            characters to do fun easter eggs<br> \
+            try the phrase \'help\' followed by enter";
+            var currentInstructions = baseInstructions;
+            function onKeyDown(event) {
+                var inputstoDisplay = "";
+                for(i = 0; i < backUpCommand.length; i ++){
+                    inputtoDisplay = inputstoDisplay.concat(i);
+                }
+
+               
+                switch (event.which) {
+
+                    case 37:
+                        myLogo.rotateY(.03);
+                        myLogoOutside.rotateY(.03);
+                        dogPlane.rotateY(.03);
+                        myTurnTimer = -150;
+                        break; //left
+                    case 39:
+                        myLogo.rotateY(-.03);
+                        myLogoOutside.rotateY(-.03);
+                        dogPlane.rotateY(-.03);
+                        myTurnTimer = -150;
+                        break; //righ
+                    case 13:
+                        if (backUpCommand[0] == 'd' && backUpCommand[1] == 'u' && backUpCommand[2] == 'b') {
+                            myLogo.add(B, D);
+                        } if (backUpCommand[0] == 'h' && backUpCommand[1] == 'e' && backUpCommand[2] == 'l' && backUpCommand[3] == 'p'){
+                            var helpInstructions = "\'dub\'<br>\'cube\'<br>";
+                            currentInstructions = helpInstructions;  
+                        } if (backUpCommand[0] == 'c' && backUpCommand[1] == 'u' && backUpCommand[2] == 'b' && backUpCommand[3] == 'e') {
+                            scene.add(cubemodel);
+                            cubemodel * 10;
+                            scene.remove(myLogo, sphere, myLogoOutside, dogPlane);
+                            var cubeInstructions = "Here is a blender cube because cubes are fun";
+                            currentInstructions = cubeInstructions;
+                            backUpCommand = [];
+                        }else {
+                            if(backUpCommand.length == 0){
+                                console.log("array is empty");
+                                scene.add(myLogo, sphere, dogPlane, myLogoOutside);
+                                myLogo.remove(B,D);
+                                scene.remove(cubemodel);
+                                currentInstructions = baseInstructions;
+                            }else{
+                                console.log("array reset");
+                                backUpCommand = [];
+                            }
+                        }
+                        //    runCommand(tempCommand);
+                        break;
+                    case 68:
+                        command.concat("d");
+                        backUpCommand.push("d");
+                        break;
+                    case 85:
+                        command.concat("u");
+                        backUpCommand.push("u");
+                        break;
+                    case 66:
+                        command.concat("b");
+                        backUpCommand.push("b");
+                        break;
+                    case 87:
+                        command.concat("w");
+                        backUpCommand.push("w");
+                        break;
+                    case 73:
+                        command.concat("i");
+                        backUpCommand.push("i");
+                        break;
+                    case 76:
+                        command.concat("l");
+                        backUpCommand.push("l");
+                        break;
+                    case 77:
+                        command.concat("m");
+                        backUpCommand.push("m");
+                        break;
+                    case 83:
+                        command.concat("s");
+                        backUpCommand.push("s");
+                        break;
+                    case 67:
+                        command.concat("c");
+                        backUpCommand.push("c");
+                        break;
+                    case 69:
+                        command.concat("e");
+                        backUpCommand.push("e");
+                        break;
+                    case 72:
+                        command.concat("h");
+                        backUpCommand.push("h");
+                        break;
+                    case 80:
+                        command.concat("p");
+                        backUpCommand.push("p");
+                        break;
+
+                }
+            }
+
+            function commandclear() {
+                command = "";
+            }
+            /*
+                        function runCommand(c){
+                          console.log(c);
+                          if (c == " wolf" ) {
+            
+                          } else if (c == " dub") {
+                            myLogoOutside.add(D,B);
+                          } else if (c == " wilms") {
+                          //  scene.add(wilms);
+                          } else if (c == " cube") {
+                          //  scene.remove(logoGeomOutside, sphere, dogPlane);
+                            //scene.add(cube);
+                          } else {
+                            //scene.add(logoGeomOutside, sphere, dogPlane);
+                            //scene.remove(D,B,wilms, cube);
+                          }
+                        }
+            */
+            window.addEventListener('keydown', onKeyDown, false);
+            window.addEventListener('resize', onResize, false);
+
+        }
+        window.onload = logoinit;
+    </script>
+
+
+</body></html>
