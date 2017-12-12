@@ -163,6 +163,19 @@
             var myLogoOutside = new THREE.Mesh(logoGeomOutside, logoMaterialOutside);
             scene.add(myLogoOutside);
 
+            var Dplane = THREE.ImageUtils.loadTexture("Textures/'D'.png");
+            var Bplane = THREE.ImageUtils.loadTexture("Textures/'B'.png");
+
+            var D = new THREE.Mesh(new THREE.PlaneGeometry(90,90,10),new THREE.MeshLambertMaterial({map: Dplane, transparent: true, side: THREE.BackSide}));
+            var B = new THREE.Mesh(new THREE.PlaneGeometry(90,90,10), new THREE.MeshLambertMaterial({map: Bplane, transparent: true}));
+            D.rotateY(Math.PI);
+            D.position.set(-100,25,0);
+            B.position.set(100,25,0);
+
+
+
+
+
             var logoGeom = new THREE.Geometry();
             logoGeom.vertices = verticesInner;
             logoGeom.faces = facesInner;
@@ -203,6 +216,8 @@
                 requestAnimationFrame(renderScene);
             }
 
+            var backUpCommand = [];
+
             function onKeyDown(event) {
                 console.log(command);
                 switch (event.which) {
@@ -222,43 +237,60 @@
                     case 13:
                         tempCommand = command;
                         commandclear();
-                        runCommand(tempCommand);
+                        if(backUpCommand[0] == 'd' && backUpCommand[1] == 'u' && backUpCommand[2] == 'b'){
+                          myLogo.add(B,D);
+                        }else {
+                          backUpCommand = [];
+                        }
+                        //    runCommand(tempCommand);
                         break;
                     case 68:
                         command.concat("d");
+                        backUpCommand.push("d");
                         break;
                     case 85:
                         command.concat("u");
+                        backUpCommand.push("u");
                         break;
                     case 66:
                         command.concat("b");
+                        backUpCommand.push("b");
                         break;
                     case 87:
                         command.concat("w");
+                        backUpCommand.push("w");
                             break;
                     case 73:
                         command.concat("i");
+                        backUpCommand.push("i");
                             break;
                     case 76:
                         command.concat("l");
+                        backUpCommand.push("l");
                             break;
                     case 77:
                         command.concat("m");
+                        backUpCommand.push("m");
                             break;
                     case 83:
                         command.concat("s");
+                        backUpCommand.push("s");
                             break;
                     case 67:
                         command.concat("c");
+                        backUpCommand.push("c");
                             break;
                     case 69:
                         command.concat("e");
+                        backUpCommand.push("e");
                             break;
                     case 72:
-                        command.concat("72");
+                        command.concat("h");
+                        backUpCommand.push("h");
                             break;
                     case 80:
                         command.concat("p");
+                        backUpCommand.push("p");
                             break;
 
                 }
@@ -267,14 +299,13 @@
             function commandclear(){
               command = " ";
             }
-
+/*
             function runCommand(c){
               console.log(c);
               if (c == " wolf" ) {
 
               } else if (c == " dub") {
-              //  scene.add(D);
-                //scene.add(B);
+                myLogoOutside.add(D,B);
               } else if (c == " wilms") {
               //  scene.add(wilms);
               } else if (c == " cube") {
@@ -285,7 +316,7 @@
                 //scene.remove(D,B,wilms, cube);
               }
             }
-
+*/
             window.addEventListener('keydown', onKeyDown, false);
             window.addEventListener('resize', onResize, false);
 
