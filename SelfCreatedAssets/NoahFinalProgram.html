@@ -179,7 +179,7 @@
         var LauraModel;
         var loaderLauraBlender = new THREE.JsonLoader();
         // TODO : upload laura's blender file to the website and then load copy link here. 
-        loaderLauraBlender.load(, loadFunc);
+        loaderLauraBlender.load("LaurasModelFromBlender.js", loadFunc);
 
         //---------------------------the claw / arm---------------------
         var base = new THREE.Mesh(new THREE.CylinderGeometry(30, 50, 20), new THREE.MeshPhongMaterial({ color: 'grey' }));

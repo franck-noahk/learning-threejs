@@ -9,11 +9,25 @@
             margin: 0;
             overflow: hidden;
         }
+        #instructions{
+            position:absolute; 
+            right:60px;
+            top: 10px; 
+            color:white
+        }
+        #inputs{
+            position: absolute;
+            left: 60px;
+            top: 10px;
+            color:white;
+        }
     </style>
 </head>
 
 <body>
     <div id="output"></div>
+    <div id="instructions"></div>
+    <div id="inputs"></div>
     <script>
         function logoinit() {
             var myTurnTimer = 0;
@@ -22,7 +36,7 @@
             //Renderer
             var renderer = new THREE.WebGLRenderer();
             renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setClearColor(new THREE.Color(0xffffff));
+            renderer.setClearColor(new THREE.Color(0x00ff00));
 
             var myTimer = 0; //something just for fun
 
@@ -149,6 +163,18 @@
                 new THREE.Face3(7, 13, 8)
             ];
 
+            var cubeLoader = new THREE.JSONLoader();
+            cubeLoader.load('Textures/cube.js', cubeloadfunction);
+
+            var cubemodel;
+
+            function cubeloadfunction(cubeGeometry, cubeMaterial){
+                cubemodel = new THREE.Mesh(cubeGeometry, cubeMaterial[0]);
+                cubemodel.materiall = new THREE.MeshPhongMaterial({color: 'silver'});
+                
+            }
+
+
             var logoGeomOutside = new THREE.Geometry();
             logoGeomOutside.vertices = verticesOuter;
             logoGeomOutside.faces = facesOuter;
@@ -166,14 +192,11 @@
             var Dplane = THREE.ImageUtils.loadTexture("Textures/'D'.png");
             var Bplane = THREE.ImageUtils.loadTexture("Textures/'B'.png");
 
-            var D = new THREE.Mesh(new THREE.PlaneGeometry(90,90,10),new THREE.MeshLambertMaterial({map: Dplane, transparent: true, side: THREE.BackSide}));
-            var B = new THREE.Mesh(new THREE.PlaneGeometry(90,90,10), new THREE.MeshLambertMaterial({map: Bplane, transparent: true}));
+            var D = new THREE.Mesh(new THREE.PlaneGeometry(90, 90, 10), new THREE.MeshLambertMaterial({ map: Dplane, transparent: true, side: THREE.BackSide }));
+            var B = new THREE.Mesh(new THREE.PlaneGeometry(90, 90, 10), new THREE.MeshLambertMaterial({ map: Bplane, transparent: true }));
             D.rotateY(Math.PI);
-            D.position.set(-100,25,0);
-            B.position.set(100,25,0);
-
-
-
+            D.position.set(-100, 25, 0);
+            B.position.set(100, 25, 0);
 
 
             var logoGeom = new THREE.Geometry();
@@ -189,10 +212,9 @@
             });
             var myLogo = new THREE.Mesh(logoGeom, logoMaterial);
             scene.add(myLogo);
-
+		
+	
             document.getElementById("output").appendChild(renderer.domElement);
-
-
 
             renderScene();
 
@@ -214,12 +236,25 @@
                 sphere.rotateY(.0045);
                 renderer.render(scene, camera);
                 requestAnimationFrame(renderScene);
+                
+                document.getElementById("instructions").innerHTML = currentInstructions;
+
             }
 
             var backUpCommand = [];
-
+            var baseInstructions = "Hey Welcome to my website!!! <br>\
+            You can control the \"U\" with the arrow keys <br> \
+            You can also enter in random words or<br>\
+            characters to do fun easter eggs<br> \
+            try the phrase \'help\' followed by enter";
+            var currentInstructions = baseInstructions;
             function onKeyDown(event) {
-                console.log(command);
+                var inputstoDisplay = "";
+                for(i = 0; i < backUpCommand.length; i ++){
+                    inputtoDisplay = inputstoDisplay.concat(i);
+                }
+
+               
                 switch (event.which) {
 
                     case 37:
@@ -235,12 +270,29 @@
                         myTurnTimer = -150;
                         break; //righ
                     case 13:
-                        tempCommand = command;
-                        commandclear();
-                        if(backUpCommand[0] == 'd' && backUpCommand[1] == 'u' && backUpCommand[2] == 'b'){
-                          myLogo.add(B,D);
+                        if (backUpCommand[0] == 'd' && backUpCommand[1] == 'u' && backUpCommand[2] == 'b') {
+                            myLogo.add(B, D);
+                        } if (backUpCommand[0] == 'h' && backUpCommand[1] == 'e' && backUpCommand[2] == 'l' && backUpCommand[3] == 'p'){
+                            var helpInstructions = "\'dub\'<br>\'cube\'<br>";
+                            currentInstructions = helpInstructions;  
+                        } if (backUpCommand[0] == 'c' && backUpCommand[1] == 'u' && backUpCommand[2] == 'b' && backUpCommand[3] == 'e') {
+                            scene.add(cubemodel);
+                            cubemodel * 10;
+                            scene.remove(myLogo, sphere, myLogoOutside, dogPlane);
+                            var cubeInstructions = "Here is a blender cube because cubes are fun";
+                            currentInstructions = cubeInstructions;
+                            backUpCommand = [];
                         }else {
-                          backUpCommand = [];
+                            if(backUpCommand.length == 0){
+                                console.log("array is empty");
+                                scene.add(myLogo, sphere, dogPlane, myLogoOutside);
+                                myLogo.remove(B,D);
+                                scene.remove(cubemodel);
+                                currentInstructions = baseInstructions;
+                            }else{
+                                console.log("array reset");
+                                backUpCommand = [];
+                            }
                         }
                         //    runCommand(tempCommand);
                         break;
@@ -259,64 +311,64 @@
                     case 87:
                         command.concat("w");
                         backUpCommand.push("w");
-                            break;
+                        break;
                     case 73:
                         command.concat("i");
                         backUpCommand.push("i");
-                            break;
+                        break;
                     case 76:
                         command.concat("l");
                         backUpCommand.push("l");
-                            break;
+                        break;
                     case 77:
                         command.concat("m");
                         backUpCommand.push("m");
-                            break;
+                        break;
                     case 83:
                         command.concat("s");
                         backUpCommand.push("s");
-                            break;
+                        break;
                     case 67:
                         command.concat("c");
                         backUpCommand.push("c");
-                            break;
+                        break;
                     case 69:
                         command.concat("e");
                         backUpCommand.push("e");
-                            break;
+                        break;
                     case 72:
                         command.concat("h");
                         backUpCommand.push("h");
-                            break;
+                        break;
                     case 80:
                         command.concat("p");
                         backUpCommand.push("p");
-                            break;
+                        break;
 
                 }
             }
 
-            function commandclear(){
-              command = " ";
+            function commandclear() {
+                command = "";
             }
-/*
-            function runCommand(c){
-              console.log(c);
-              if (c == " wolf" ) {
-
-              } else if (c == " dub") {
-                myLogoOutside.add(D,B);
-              } else if (c == " wilms") {
-              //  scene.add(wilms);
-              } else if (c == " cube") {
-              //  scene.remove(logoGeomOutside, sphere, dogPlane);
-                //scene.add(cube);
-              } else {
-                //scene.add(logoGeomOutside, sphere, dogPlane);
-                //scene.remove(D,B,wilms, cube);
-              }
-            }
-*/
+            /*
+                        function runCommand(c){
+                          console.log(c);
+                          if (c == " wolf" ) {
+            
+                          } else if (c == " dub") {
+                            myLogoOutside.add(D,B);
+                          } else if (c == " wilms") {
+                          //  scene.add(wilms);
+                          } else if (c == " cube") {
+                          //  scene.remove(logoGeomOutside, sphere, dogPlane);
+                            //scene.add(cube);
+                          } else {
+                            //scene.add(logoGeomOutside, sphere, dogPlane);
+                            //scene.remove(D,B,wilms, cube);
+                          }
+                        }
+            */
             window.addEventListener('keydown', onKeyDown, false);
             window.addEventListener('resize', onResize, false);
 
