@@ -1,6 +1,8 @@
-learning-threejs
-================
+# Learning-threejs
+## Computer Science Graphics class
+### Tought by Jim Kirk, this does contain [work examples(Sources/) that was from the textbook we used
 
-Branch used to update all examples to three.js release r63
-
-Code repository for the examples from the Packt book "Learning Threejs"
+## Projects:
+1. 
+2. 
+3. 
